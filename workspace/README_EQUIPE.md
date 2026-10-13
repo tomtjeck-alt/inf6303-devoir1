@@ -7,8 +7,8 @@ Clé d'interconnexion entre les trois systèmes : `user_id`.
 
 | Nom | Matricule | Contribution |
 |---|---|---|
-| [Tjeck Tjeck Thomas Noel] | [tjen01@uqo.ca] | [Partie A Hive, corrections de l'environnement] |
-| [Tjeck Tjeck Thomas Noel] | [tjen01@uqo.ca] | [ Parties B et C, rapport, diagramme] |
+| Tjeck Tjeck Thomas Noel | tjen01@uqo.ca | Partie A Hive, corrections de l'environnement |
+| Tjeck Tjeck Thomas Noel | tjen01@uqo.ca |  Parties B et C, rapport, diagramme |
 
 ## Fichiers remis
 
