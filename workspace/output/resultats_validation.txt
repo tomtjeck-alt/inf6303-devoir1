@@ -1,0 +1,2 @@
+segments_utilisateurs.csv OK 1654528
+audience_cible.jsonl OK 5617634

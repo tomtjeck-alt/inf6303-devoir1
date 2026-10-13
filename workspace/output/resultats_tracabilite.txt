@@ -1,0 +1,16 @@
+user_id   cas                système    pays           segment      nb_events watch/score  remarque
+u000001   cible consentante  Hive       Senegal        intensif            26       60487
+                             MongoDB    Senegal        intensif            26       60487  plan=gratuit, consent=True, exporté=True
+                             Cassandra  Senegal        intensif            26       60487  plan=gratuit
+                             -> valeurs Hive = MongoDB : True
+
+u000002   occasionnel        Hive       Canada         occasionnel         17       26137
+                             MongoDB    Canada         occasionnel         17       26137  plan=premium, consent=False, exporté=False
+                             Cassandra  absent                                             segment hors cible (filtre B3)
+                             -> valeurs Hive = MongoDB : True
+
+u000004   non consentant     Hive       Canada         actif               18       51017
+                             MongoDB    Canada         actif               18       51017  plan=premium, consent=False, exporté=False
+                             Cassandra  absent                                             pas de consentement (filtre B3)
+                             -> valeurs Hive = MongoDB : True
+

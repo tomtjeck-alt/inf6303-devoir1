@@ -1,0 +1,243 @@
++----------------+
+| nb_evenements  |
++----------------+
+| 1000000        |
++----------------+
++--------------+
+| nb_contenus  |
++--------------+
+| 2000         |
++--------------+
++---------------------+--------------------+-----------------------+-----------------------+
+| event_id_invalides  | user_id_invalides  | content_id_invalides  | session_id_invalides  |
++---------------------+--------------------+-----------------------+-----------------------+
+| 0                   | 0                  | 0                     | 0                     |
++---------------------+--------------------+-----------------------+-----------------------+
++--------------------+
+| event_id_doublons  |
++--------------------+
+| 0                  |
++--------------------+
++-------------+-----------------+-------------+------------+------------+------------+------------------------+------------------------+
+| duree_null  | duree_negative  | duree_zero  | date_null  | duree_min  | duree_max  |     premiere_date      |     derniere_date      |
++-------------+-----------------+-------------+------------+------------+------------+------------------------+------------------------+
+| 0           | 0               | 2566        | 0          | 0          | 7200       | 2026-01-01 00:00:03.0  | 2026-06-29 23:59:58.0  |
++-------------+-----------------+-------------+------------+------------+------------+------------------------+------------------------+
++---------------------+
+| contenus_orphelins  |
++---------------------+
+| 0                   |
++---------------------+
++------------------------------+
+| duree_superieure_au_contenu  |
++------------------------------+
+| 224988                       |
++------------------------------+
++----------------+----------------+
+|    country     | nb_evenements  |
++----------------+----------------+
+| Canada         | 311247         |
+| Senegal        | 132617         |
+| Cote_d_Ivoire  | 119916         |
+| France         | 118790         |
+| Maroc          | 98758          |
+| Cameroun       | 89530          |
+| Belgique       | 69962          |
+| Tunisie        | 59180          |
++----------------+----------------+
++---------------+----------------+
+|  event_type   | nb_evenements  |
++---------------+----------------+
+| lecture       | 549714         |
+| pause         | 139884         |
+| recherche     | 119987         |
+| abandon       | 110611         |
+| ajout_favori  | 79804          |
++---------------+----------------+
++---------------+----------------+------------------+-------------------+
+| e.content_id  |    c.title     |     c.genre      | duree_totale_sec  |
++---------------+----------------+------------------+-------------------+
+| c00545        | Contenu_00545  | jeunesse         | 1226712           |
+| c01844        | Contenu_01844  | actualite        | 1221503           |
+| c00686        | Contenu_00686  | comedie          | 1216833           |
+| c00277        | Contenu_00277  | sport            | 1210971           |
+| c00553        | Contenu_00553  | science_fiction  | 1204604           |
+| c01825        | Contenu_01825  | drame            | 1201793           |
+| c00882        | Contenu_00882  | drame            | 1200490           |
+| c00912        | Contenu_00912  | comedie          | 1199344           |
+| c01263        | Contenu_01263  | jeunesse         | 1198489           |
+| c01769        | Contenu_01769  | jeunesse         | 1198083           |
++---------------+----------------+------------------+-------------------+
++-------------+----------+----------------+--------------------+
+|   device    | quality  | nb_evenements  | duree_moyenne_sec  |
++-------------+----------+----------------+--------------------+
+| mobile      | 4K       | 52292          | 2028.6             |
+| mobile      | FHD      | 143906         | 2023.3             |
+| mobile      | HD       | 155778         | 2026.3             |
+| mobile      | SD       | 47933          | 2012.9             |
+| ordinateur  | 4K       | 27203          | 2032.4             |
+| ordinateur  | FHD      | 75425          | 2028.9             |
+| ordinateur  | HD       | 82003          | 2022.4             |
+| ordinateur  | SD       | 25236          | 2014.5             |
+| tablette    | 4K       | 10327          | 2025.3             |
+| tablette    | FHD      | 28825          | 2019.9             |
+| tablette    | HD       | 31232          | 2010.6             |
+| tablette    | SD       | 9767           | 2065.3             |
+| television  | 4K       | 40126          | 2011.3             |
+| television  | FHD      | 111535         | 2034.5             |
+| television  | HD       | 121069         | 2028.1             |
+| television  | SD       | 37343          | 2032.1             |
++-------------+----------+----------------+--------------------+
++----------------------------------------------------+
+|                      Explain                       |
++----------------------------------------------------+
+| STAGE DEPENDENCIES:                                |
+|   Stage-1 is a root stage                          |
+|   Stage-2 depends on stages: Stage-1               |
+|   Stage-3 depends on stages: Stage-2               |
+|   Stage-0 depends on stages: Stage-3               |
+|                                                    |
+| STAGE PLANS:                                       |
+|   Stage: Stage-1                                   |
+|     Map Reduce                                     |
+|       Map Operator Tree:                           |
+|           TableScan                                |
+|             alias: e                               |
+|             filterExpr: content_id is not null (type: boolean) |
+|             Statistics: Num rows: 237575 Data size: 41933776 Basic stats: COMPLETE Column stats: NONE |
+|             Filter Operator                        |
+|               predicate: content_id is not null (type: boolean) |
+|               Statistics: Num rows: 223051 Data size: 39370180 Basic stats: COMPLETE Column stats: NONE |
+|               Select Operator                      |
+|                 expressions: content_id (type: string), watch_seconds (type: int) |
+|                 outputColumnNames: _col0, _col1    |
+|                 Statistics: Num rows: 223051 Data size: 39370180 Basic stats: COMPLETE Column stats: NONE |
+|                 Reduce Output Operator             |
+|                   key expressions: _col0 (type: string) |
+|                   null sort order: z               |
+|                   sort order: +                    |
+|                   Map-reduce partition columns: _col0 (type: string) |
+|                   Statistics: Num rows: 223051 Data size: 39370180 Basic stats: COMPLETE Column stats: NONE |
+|                   value expressions: _col1 (type: int) |
+|           TableScan                                |
+|             alias: c                               |
+|             filterExpr: content_id is not null (type: boolean) |
+|             Statistics: Num rows: 1675 Data size: 851184 Basic stats: COMPLETE Column stats: NONE |
+|             Filter Operator                        |
+|               predicate: content_id is not null (type: boolean) |
+|               Statistics: Num rows: 1541 Data size: 783089 Basic stats: COMPLETE Column stats: NONE |
+|               Select Operator                      |
+|                 expressions: content_id (type: string), title (type: string), genre (type: string) |
+|                 outputColumnNames: _col0, _col1, _col2 |
+|                 Statistics: Num rows: 1541 Data size: 783089 Basic stats: COMPLETE Column stats: NONE |
+|                 Reduce Output Operator             |
+|                   key expressions: _col0 (type: string) |
+|                   null sort order: z               |
+|                   sort order: +                    |
+|                   Map-reduce partition columns: _col0 (type: string) |
+|                   Statistics: Num rows: 1541 Data size: 783089 Basic stats: COMPLETE Column stats: NONE |
+|                   value expressions: _col1 (type: string), _col2 (type: string) |
+|       Reduce Operator Tree:                        |
+|         Join Operator                              |
+|           condition map:                           |
+|                Inner Join 0 to 1                   |
+|           keys:                                    |
+|             0 _col0 (type: string)                 |
+|             1 _col0 (type: string)                 |
+|           outputColumnNames: _col0, _col1, _col3, _col4 |
+|           Statistics: Num rows: 245356 Data size: 43307198 Basic stats: COMPLETE Column stats: NONE |
+|           Group By Operator                        |
+|             aggregations: sum(_col1)               |
+|             keys: _col0 (type: string), _col3 (type: string), _col4 (type: string) |
+|             minReductionHashAggr: 0.99             |
+|             mode: hash                             |
+|             outputColumnNames: _col0, _col1, _col2, _col3 |
+|             Statistics: Num rows: 245356 Data size: 43307198 Basic stats: COMPLETE Column stats: NONE |
+|             File Output Operator                   |
+|               compressed: false                    |
+|               table:                               |
+|                   input format: org.apache.hadoop.mapred.SequenceFileInputFormat |
+|                   output format: org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat |
+|                   serde: org.apache.hadoop.hive.serde2.lazybinary.LazyBinarySerDe |
+|                                                    |
+|   Stage: Stage-2                                   |
+|     Map Reduce                                     |
+|       Map Operator Tree:                           |
+|           TableScan                                |
+|             Reduce Output Operator                 |
+|               key expressions: _col0 (type: string), _col1 (type: string), _col2 (type: string) |
+|               null sort order: zzz                 |
+|               sort order: +++                      |
+|               Map-reduce partition columns: _col0 (type: string), _col1 (type: string), _col2 (type: string) |
+|               Statistics: Num rows: 245356 Data size: 43307198 Basic stats: COMPLETE Column stats: NONE |
+|               value expressions: _col3 (type: bigint) |
+|       Execution mode: vectorized                   |
+|       Reduce Operator Tree:                        |
+|         Group By Operator                          |
+|           aggregations: sum(VALUE._col0)           |
+|           keys: KEY._col0 (type: string), KEY._col1 (type: string), KEY._col2 (type: string) |
+|           mode: mergepartial                       |
+|           outputColumnNames: _col0, _col1, _col2, _col3 |
+|           Statistics: Num rows: 122678 Data size: 21653599 Basic stats: COMPLETE Column stats: NONE |
+|           File Output Operator                     |
+|             compressed: false                      |
+|             table:                                 |
+|                 input format: org.apache.hadoop.mapred.SequenceFileInputFormat |
+|                 output format: org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat |
+|                 serde: org.apache.hadoop.hive.serde2.lazybinary.LazyBinarySerDe |
+|                                                    |
+|   Stage: Stage-3                                   |
+|     Map Reduce                                     |
+|       Map Operator Tree:                           |
+|           TableScan                                |
+|             Reduce Output Operator                 |
++----------------------------------------------------+
+|                      Explain                       |
++----------------------------------------------------+
+|               key expressions: _col3 (type: bigint) |
+|               null sort order: a                   |
+|               sort order: -                        |
+|               Statistics: Num rows: 122678 Data size: 21653599 Basic stats: COMPLETE Column stats: NONE |
+|               TopN Hash Memory Usage: 0.1          |
+|               value expressions: _col0 (type: string), _col1 (type: string), _col2 (type: string) |
+|       Execution mode: vectorized                   |
+|       Reduce Operator Tree:                        |
+|         Select Operator                            |
+|           expressions: VALUE._col0 (type: string), VALUE._col1 (type: string), VALUE._col2 (type: string), KEY.reducesinkkey0 (type: bigint) |
+|           outputColumnNames: _col0, _col1, _col2, _col3 |
+|           Statistics: Num rows: 122678 Data size: 21653599 Basic stats: COMPLETE Column stats: NONE |
+|           Limit                                    |
+|             Number of rows: 10                     |
+|             Statistics: Num rows: 10 Data size: 1760 Basic stats: COMPLETE Column stats: NONE |
+|             File Output Operator                   |
+|               compressed: false                    |
+|               Statistics: Num rows: 10 Data size: 1760 Basic stats: COMPLETE Column stats: NONE |
+|               table:                               |
+|                   input format: org.apache.hadoop.mapred.SequenceFileInputFormat |
+|                   output format: org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat |
+|                   serde: org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe |
+|                                                    |
+|   Stage: Stage-0                                   |
+|     Fetch Operator                                 |
+|       limit: 10                                    |
+|       Processor Tree:                              |
+|         ListSink                                   |
+|                                                    |
++----------------------------------------------------+
++-------------------+
+| users_multi_pays  |
++-------------------+
+| 0                 |
++-------------------+
++--------------+------------------+
+|   segment    | nb_utilisateurs  |
++--------------+------------------+
+| actif        | 30901            |
+| intensif     | 7430             |
+| occasionnel  | 11669            |
++--------------+------------------+
++------------------+-------------------+
+| nb_utilisateurs  | total_evenements  |
++------------------+-------------------+
+| 50000            | 1000000           |
++------------------+-------------------+

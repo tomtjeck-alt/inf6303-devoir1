@@ -1,0 +1,8 @@
+# Données sources massives fournies par le professeur (ne pas recopier, cf. énoncé)
+data/
+# Énoncé du professeur
+Devoir_1_Enonce.pdf
+# Fichiers techniques
+.ipynb_checkpoints/
+*.crc
+__pycache__/

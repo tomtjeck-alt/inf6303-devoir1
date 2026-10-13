@@ -1,0 +1,33 @@
+B1. Profils importés : 50000
+B1. Exemple : {'user_id': 'u000001', 'country': 'Senegal', 'plan': 'gratuit', 'signup_date': '2025-01-12', 'age_group': '18-24', 'preferences': {'genres': ['science_fiction', 'comedie', 'actualite'], 'language': 'fr-en'}, 'devices': ['television', 'tablette', 'mobile'], 'consent_analytics': True}
+B2. Index : ['_id_', 'ux_user_id', 'ix_country_segment']
+B3. Lignes de segments lues : 50000
+B3. Profils trouvés : 50000 | modifiés : 50000
+B4. Documents exportés : 34855
+
+===== B5. CONTRÔLES =====
+Profils dans MongoDB      : 50000
+Segments (lignes Hive)    : 50000
+Profils enrichis          : 50000
+Profils sans analytics    : 0
+
+Profils par segment :
+  actif        30901
+  intensif     7430
+  occasionnel  11669
+
+Consentement :
+  False        4503
+  True         45497
+
+Audience exportée par segment :
+  actif        28071
+  intensif     6784
+  total        34855
+
+explain() : find({country: 'Canada', analytics.segment: 'intensif'})
+  étape             : IXSCAN
+  index utilisé     : ix_country_segment
+  clés examinées    : 2288
+  docs examinés     : 2288
+  docs retournés    : 2288

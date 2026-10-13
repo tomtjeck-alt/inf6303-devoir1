@@ -1,0 +1,67 @@
+C1. Connecté, keyspace inf6303_devoir1 prêt.
+C2. Table audience_par_pays_segment créée.
+C2. Table audience_par_plan créée.
+C3. Documents lus dans audience_cible.jsonl : 34855 (85.6 s)
+
+===== C4. VALIDATION =====
+Lignes par partition (country, segment) :
+  Belgique       intensif  474
+  Belgique       actif     1978
+  Cameroun       intensif  604
+  Cameroun       actif     2536
+  Canada         intensif  2077
+  Canada         actif     8792
+  Cote_d_Ivoire  intensif  811
+  Cote_d_Ivoire  actif     3370
+  France         intensif  820
+  France         actif     3305
+  Maroc          intensif  684
+  Maroc          actif     2752
+  Senegal        intensif  932
+  Senegal        actif     3666
+  Tunisie        intensif  382
+  Tunisie        actif     1672
+Documents exportés par MongoDB : 34855
+Lignes chargées dans Cassandra : 34855
+Écart                          : 0
+
+Top 10 Canada / intensif :
+   1. u012192  score=99744  nb_events=36  plan=standard
+   2. u047861  score=96938  nb_events=28  plan=standard
+   3. u025691  score=95497  nb_events=34  plan=standard
+   4. u049062  score=95407  nb_events=42  plan=premium
+   5. u042077  score=94314  nb_events=30  plan=standard
+   6. u001658  score=94019  nb_events=24  plan=standard
+   7. u007230  score=93381  nb_events=26  plan=gratuit
+   8. u013563  score=93250  nb_events=37  plan=gratuit
+   9. u025640  score=90301  nb_events=31  plan=gratuit
+  10. u029858  score=90175  nb_events=33  plan=premium
+
+Top 10 Senegal / actif :
+   1. u045934  score=54999  nb_events=23  plan=standard
+   2. u038368  score=54977  nb_events=20  plan=gratuit
+   3. u046419  score=54972  nb_events=25  plan=gratuit
+   4. u035765  score=54969  nb_events=18  plan=gratuit
+   5. u040875  score=54966  nb_events=21  plan=gratuit
+   6. u008402  score=54965  nb_events=26  plan=premium
+   7. u023699  score=54944  nb_events=29  plan=standard
+   8. u049400  score=54943  nb_events=21  plan=gratuit
+   9. u030805  score=54938  nb_events=25  plan=gratuit
+  10. u023426  score=54926  nb_events=26  plan=premium
+
+Recherche globale par plan : SELECT ... WHERE plan = 'premium'
+  Refusée par Cassandra : InvalidRequest
+   Error from server: code=2200 [Invalid query] message="Cannot execute this query as it might involve data filtering and thus may have unpredictable performance. If you want to execute this query despit
+
+Top 5 premium / Canada (table audience_par_plan) :
+  1. u049062  score=95407  segment=intensif
+  2. u029858  score=90175  segment=intensif
+  3. u004019  score=89320  segment=intensif
+  4. u015255  score=88606  segment=intensif
+  5. u041159  score=87811  segment=intensif
+
+Lignes de audience_par_plan par plan :
+  gratuit   16831
+  standard  11672
+  premium   6352
+  total     34855 (attendu : 34855 )
